@@ -1,0 +1,87 @@
+function formulario_avaliacao_psicoterapia() {
+ob_start(); ?>
+<form id="avaliacao-form" method="post">
+    <p>Quão satisfeita(o) você está com as sessões de psicoterapia?</p>
+    <div class="stars" data-name="satisfacao"></div>
+
+    <p>O atendimento atendeu ou superou suas expectativas?</p>
+    <div class="stars" data-name="expectativas"></div>
+
+    <p>Você sente que está tendo progresso com as sessões?</p>
+    <div class="stars" data-name="progresso"></div>
+
+    <p>A abordagem utilizada nas sessões foi adequada para você?</p>
+    <div class="stars" data-name="abordagem"></div>
+
+    <p>O ambiente (online ou presencial) contribuiu para o seu conforto e segurança emocional?</p>
+    <div class="stars" data-name="ambiente"></div>
+
+    <p>O tempo de duração das sessões foi suficiente para abordar suas questões?</p>
+    <div class="stars" data-name="duracao"></div>
+
+    <p>A comunicação e o acolhimento durante as sessões foram satisfatórios?</p>
+    <div class="stars" data-name="comunicacao"></div>
+
+    <p>Você recomendaria meu trabalho como psicóloga para outras pessoas?</p>
+    <div class="stars" data-name="recomendacao"></div>
+
+    <p>Se quiser compartilhar um pouco mais sobre sua experiência, escreva seu depoimento abaixo.</p>
+    <textarea name="depoimento" rows="4" cols="50"></textarea>
+
+    <input type="submit" name="enviar_avaliacao" value="Enviar Avaliação">
+</form>
+<p id="mensagem-sucesso" style="display:none; color:green;">Obrigado pelo seu feedback! Sua avaliação foi enviada com sucesso.</p>
+
+<script>
+    document.querySelectorAll('.stars').forEach(div => {
+        let name = div.getAttribute('data-name');
+        for (let i = 1; i <= 5; i++) {
+            let star = document.createElement('span');
+            star.innerHTML = '★';
+            star.dataset.value = i;
+            star.onclick = function() {
+                document.querySelectorAll(.stars[data-name='${name}'] span).forEach(s => {
+                    s.style.color = (s.dataset.value <= i) ? 'gold' : 'gray';
+                });
+                let input = document.querySelector(input[name='${name}']) || document.createElement('input');
+                input.type = 'hidden';
+                input.name = name;
+                input.value = i;
+                div.appendChild(input);
+            };
+            div.appendChild(star);
+        }
+    });
+
+    document.getElementById('avaliacao-form').onsubmit = function() {
+        document.getElementById('mensagem-sucesso').style.display = 'block';
+        setTimeout(() => {
+            document.getElementById('mensagem-sucesso').style.display = 'none';
+        }, 5000);
+    };
+</script>
+<?php return ob_get_clean();
+}
+add_shortcode('avaliacao_psicoterapia', 'formulario_avaliacao_psicoterapia');
+
+function enviar_avaliacao_email() {
+    if (isset($_POST['enviar_avaliacao'])) {
+        $to = 'clinicadepsicologiavip@mariliapsicologiavip.com';
+        $subject = 'Nova Avaliação de Psicoterapia';
+        $message = "\n";
+        
+        $campos = ['satisfacao', 'expectativas', 'progresso', 'abordagem', 'ambiente', 'duracao', 'comunicacao', 'recomendacao'];
+        
+        foreach ($campos as $campo) {
+            if (isset($_POST[$campo])) {
+                $message .= ucfirst($campo) . ": " . $_POST[$campo] . " estrelas\n";
+            }
+        }
+        
+        $message .= "\nDepoimento: " . $_POST['depoimento'] . "\n";
+        
+        $headers = "From: site@mariliapsicologiavip.com";
+        wp_mail($to, $subject, $message, $headers);
+    }
+}
+add_action('init', 'enviar_avaliacao_email');
