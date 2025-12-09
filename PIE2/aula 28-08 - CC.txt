@@ -1,0 +1,41 @@
+#include <stdio.h>
+#include <stdlib.h>
+
+int main(int argc, char *argv[]) 
+{
+	int opcao;
+	int numero1, numero2, resultado;
+	opcao=1;
+	while(opcao!=5)
+	{
+	     printf("\nCalculadora");
+		printf("\n1 - Adicao");
+		printf("\n2 - Subtracao");
+		printf("\n3 - Mulitiplicao");
+		printf("\n4 - Divisao");
+		printf("\n5 - Sair");
+		printf("\nDigite uma opcao: ");
+		scanf("%d",&opcao);
+		
+		if(opcao==1)
+		{
+		   printf("\nDigite o primeiro número: ");
+		   scanf("%d",&numero1);
+		   printf("\nDigite o segundo número: ");
+		   scanf("%d",&numero2);
+		   resultado = numero1 + numero2;
+		   printf("\nResultado: %d",resultado);
+	     }
+	     else if(opcao==2)
+	     {
+	        printf("\nDigite o primeiro número: ");
+		   scanf("%d",&numero1);
+		   printf("\nDigite o segundo número: ");
+		   scanf("%d",&numero2);
+		   resultado = numero1 - numero2;
+		   printf("\nResultado: %d",resultado);
+		}
+		
+	}
+	return 0;
+}
