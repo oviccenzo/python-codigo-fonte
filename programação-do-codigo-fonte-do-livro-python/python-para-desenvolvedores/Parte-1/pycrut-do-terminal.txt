@@ -1,0 +1,15 @@
+(.venv) rlresende@MacBook-Pro-de-Robert python-para-desenvolvedores % python
+Python 3.12.7 (main, Oct 28 2024, 01:11:29) [Clang 11.0.0 (clang-1100.0.33.16)] on darwin
+Type "help", "copyright", "credits" or "license" for more information.
+>>>l = ['sebp','lldob','dsotm','ltis']
+>>>l.append('sabb')
+>>>l
+['sebp','lldob','dsotm','ltis']
+>>>>l.pop(2)
+'dsotm'
+>>>l
+['sebp','lldob','dsotm','ltis']
+>>>l.sort()
+>>>l
+['lldob','ltis','sabb','sebp']
+>>>l.
