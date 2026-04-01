@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <title>Classificação da Iris</title>
+    <link rel="stylesheet" href=" {{ url_for('static' filename= 'style.css') }}">
+   <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container">
+        <h1>Classificação da flor Iris</h1>
+
+        <form action="/predict">
+            <label>Comprimento da Sépala
+                <input type="number" step="0.01" name="sepal_length" required>
+            </label>
+
+            <label>Largura da Sépala
+                <input type="number" step="0.01" name="sepal_width" required>
+            </label>
+
+            <label>Comprimento da Pétala
+                <input type="number" step="0.01" name="petal_length" required>
+            </label>
+
+            <label>Largura da Pétala
+                <input type="number" step="0.01" name="petal_width" required>
+            </label>
+
+            <button type="submit">Classificar </button>
+
+        </form>
+
+            {% if prediction %}
+                <div class="result">
+                    <h2>Resultado: </h2>
+                    <p>{{ prediction }}</p>
+                </div>
+            {% endif %}
+
+    </div>
+</body>
+</html>
